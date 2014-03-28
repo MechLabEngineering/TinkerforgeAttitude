@@ -20,6 +20,9 @@ def calcattitude(ax, ay, az):
     ay = ay*9.806/1000.0
     az = az*9.806/1000.0
 
+
+    # Calculate Roll and Pitch from Acceleration
+    # is only valid in quasistatic situations
     rollacc = rad2deg(np.arctan2(-ay, -az))
     pitchacc= rad2deg(-np.arctan2(-ax, np.sqrt(ay**2+az**2)))
 
@@ -42,18 +45,12 @@ def calcattitude2(x, y, z, w):
     # the real part is the w
     # the imaginary parts are x,y,z
 
-    # Quaternions
-    q2=x # imaginary
-    q3=y # imaginary
-    q4=z # imaginary
-    q1=w # real
-
     # Calculate Attitude
     # Buchholz, J. J. (2013). Vorlesungsmanuskript Regelungstechnik und Flugregler.
     # GRIN Verlag. Retrieved from http://www.grin.com/de/e-book/82818/regelungstechnik-und-flugregler
-    yaw  = -np.arctan2(2.0*(q2*q3 + q1*q4), q1**2+q2**2-q3**2-q4**2)
-    pitch= -np.arcsin(2.0*(q1*q3 - q2*q4))
-    roll = -np.arctan2(2.0*(q3*q4 + q1*q2), -(q1**2-q2**2-q3**2+q4**2))
+    yaw   =  np.arctan2(2.0*(x*y + w*z), w**2+x**2-y**2-z**2)
+    pitch = -np.arcsin(2.0*(w*y - x*z))
+    roll  = -np.arctan2(2.0*(y*z + w*x), -(w**2-x**2-y**2+z**2))
 
     print("\t\t\t\tyaw:\t%+6.0f\troll:\t%+6.0f\tpitch:\t%+6.0f" % (rad2deg(yaw), rad2deg(roll), rad2deg(pitch)))
     print(80*'=')
