@@ -30,21 +30,6 @@ def calcattitude(ax, ay, az):
 
 def calcattitude2(x, y, z, w):
 
-    # Formula from Tinkerforge Website
-    #roll  = np.arctan2(2*y*w - 2*x*z, 1 - 2*y*y - 2*z*z)
-    #pitch = np.arctan2(2*x*w - 2*y*z, 1 - 2*x*x - 2*z*z)
-    #yaw   = np.arcsin(2*x*y + 2*z*w)
-    # might be wrong?!
-
-
-    # Code from Tinkerforge IMU:
-    # imu_qua_w = imu_filter_seq_1;
-    # imu_qua_x = imu_filter_seq_2;
-    # imu_qua_y = imu_filter_seq_3;
-    # imu_qua_z = imu_filter_seq_4;
-    # the real part is the w
-    # the imaginary parts are x,y,z
-
     # Calculate Attitude
     # Buchholz, J. J. (2013). Vorlesungsmanuskript Regelungstechnik und Flugregler.
     # GRIN Verlag. Retrieved from http://www.grin.com/de/e-book/82818/regelungstechnik-und-flugregler
